@@ -1,19 +1,15 @@
 package BuisnessLogic;
 import Data.Data;
-import Presentation.UIInterface;
-
 
 public class BL {
 
-	private UIInterface ui;
 	private Data data;
 	
-	public BL(UIInterface ui, Data data){
-		this.ui = ui;
+	public BL(Data data){
 		this.data = data;
 	}
 	
-	public void alertName(){
-		ui.alert(data.getName());
+	public String getName(){
+		return data.getName();
 	}
 }

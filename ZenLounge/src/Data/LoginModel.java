@@ -13,7 +13,10 @@ public class LoginModel extends Model{
 	
 	public String getName(){
 		if(name.isEmpty()) {
-			List<Object> results = db.selectRequest("SELECT NAME","FROM USER","WHERE ID = 50");
+			String[] select = {"name"};
+			String[] from = {"user"};
+			String[] where = {"ID = 50"};
+			List<Object> results = db.selectRequest(select,from,where);
 			if(results.size() > 0)
 			name = (String)results.get(0);
 		}

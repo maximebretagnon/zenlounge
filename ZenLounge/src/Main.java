@@ -1,17 +1,17 @@
-import BuisnessLogic.BL;
-import Data.Data;
-import Data.MySQLModel;
-import Presentation.consoleUI;
+import Presentation.*;
+import BuisnessLogic.*;
+import Data.*;
 
 public class Main {
 
 	public static void main(String[] args) {
 
-		MySQLModel mysql = new MySQLModel();
-		Data data = new Data(mysql);
-		BL bl = new BL(data);
-		consoleUI console = new consoleUI(bl);
+		MySQLDB mysql = new MySQLDB();
+		
+		Model loginModel = new LoginModel(mysql);
+		Controller loginController = new LoginController(loginModel);
+		View loginView = new LoginView(loginController);
 	
-		console.alertName();
+		((LoginView)loginView).alertName();
 	}
 }

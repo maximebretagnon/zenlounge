@@ -1,18 +1,14 @@
 package Data;
+
 import java.util.List;
 
-public class Data {
-	
+public class LoginModel extends Model{
+
 	private String name;
-	private DBInterface db;
 	
-	public Data(String name, DBInterface db){
-		this.name = name;
-		this.db = db;
-	}
-	
-	public Data(DBInterface db){
-		this("",db);
+	public LoginModel(DBInterface db) {
+		super(db);
+		this.name = "";
 	}
 	
 	public String getName(){

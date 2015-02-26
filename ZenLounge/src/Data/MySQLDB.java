@@ -2,7 +2,7 @@ package Data;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MySQLModel implements DBInterface {
+public class MySQLDB implements DBInterface {
 
 	@Override
 	public List<Object> selectRequest(String select, String from,String where) {

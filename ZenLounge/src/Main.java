@@ -1,17 +1,15 @@
-import Presentation.*;
-import BuisnessLogic.*;
-import Data.*;
+import UI.Common.Frame;
+import UI.Views.LoginView;
 
 public class Main {
 
 	public static void main(String[] args) {
-
-		MySQLDB mysql = new MySQLDB();
+			
+		LoginView loginView = new LoginView();
 		
-		Model loginModel = new LoginModel(mysql);
-		Controller loginController = new LoginController(loginModel);
-		View loginView = new LoginView(loginController);
-	
-		((LoginView)loginView).alertName();
+		Frame f = Frame.getFrame();
+		f.setView(loginView);
+		f.setVisible(true);
+		
 	}
 }

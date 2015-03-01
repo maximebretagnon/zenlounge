@@ -57,7 +57,7 @@ public class LoginView extends View implements ActionListener{
     }
 
     private void login() {
-    	String pwd = Utilitary.hash(pwdField.getPassword());
+    	String pwd = String.valueOf(pwdField.getPassword());
     	pwdField.setText("");
     	if(userFacade.handleLogin(loginField.getText(),pwd))
     		/*Frame.getFrame().setView(new ProfileView())*/

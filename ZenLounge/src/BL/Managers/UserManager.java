@@ -1,5 +1,6 @@
 package BL.Managers;
 
+import BL.Others.Utilitary;
 import Data.Datas.UserData;
 import UI.Common.ViewIF;
 
@@ -15,9 +16,9 @@ public class UserManager {
     }
 
     public boolean handleLogin(String login, String pwd) {
-    	return testLogin(userData.getUser(login, pwd));
-    }
-    private boolean testLogin(boolean userFound) {
-    	return userFound;
+    	userData = UserData.getUser(login);
+    	System.out.println(Utilitary.hash(pwd));
+    	return Utilitary.hash(pwd).equals(userData.getPwd()) && !userData.getLogin().equals("");
+    	
     }
 }

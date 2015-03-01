@@ -31,7 +31,7 @@ public class Database
 		}
     }
 
-    public static ResultSet request(String request) {
+    public static ResultSet selectRequest(String request) {
     	
     	/* Si la connexion n'existe pas, on l'ouvre */
     	if (connexion == null)
@@ -43,19 +43,35 @@ public class Database
 		
     	try {
 			statement = connexion.createStatement();
+			resultat = statement.executeQuery(request);
 		} catch (SQLException e1) {
-			/* Gérer les éventuelles erreurs ici */
-		}
-    	
-    	try {
-			resultat = statement.executeQuery( "SELECT id, email, mot_de_passe, nom  FROM Utilisateur;" );
-		} catch (SQLException e) {
 			/* Gérer les éventuelles erreurs ici */
 		}
     	
     	return resultat;
     }
 
+    public static int insertRequest(String request) {
+    	
+    	int status = 0;
+    	
+    	/* Si la connexion n'existe pas, on l'ouvre */
+    	if (connexion == null)
+    		open();
+    	
+    	/* Exécution d'une requête de lecture */
+    	Statement statement = null;
+		
+    	try {
+			statement = connexion.createStatement();
+			status = statement.executeUpdate(request);
+		} catch (SQLException e1) {
+			/* Gérer les éventuelles erreurs ici */
+		}
+
+    	
+    	return status;
+    }
     public static void close() {
 	    if (connexion != null)
 	        try {

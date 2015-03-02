@@ -1,5 +1,6 @@
 package UI.Views;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,6 +32,7 @@ public class LoginView extends View implements ActionListener{
     private JButton subscribeButton;
 	
     public UserFacade userFacade;
+    private JLabel error;
     
     public LoginView(){
     	super("ZenLounge - Login");
@@ -71,6 +73,13 @@ public class LoginView extends View implements ActionListener{
     	this.add(pwdField);
     	this.add(loginButton);
     	this.add(subscribeButton);
+    	
+    	error = new JLabel("Incorrect Login/Password combination. Please try again.");
+    	springLayout.putConstraint(SpringLayout.SOUTH, error, -29, SpringLayout.NORTH, loginField);
+    	springLayout.putConstraint(SpringLayout.EAST, error, -196, SpringLayout.EAST, this);
+    	error.setForeground(Color.RED);
+    	error.setVisible(false);
+    	add(error);
     }
 
     private void login() {
@@ -79,11 +88,10 @@ public class LoginView extends View implements ActionListener{
     	if(userFacade.handleLogin(loginField.getText(),pwd)){
     		Frame.getFrame().setView(new NotificationCenterView("Zen Lounge - Notification Center"));
     		Frame.getFrame().revalidate();
-    		System.out.println(this.getWidth()+ "loool"+this.getHeight());
         	log("Login succeeded. Show Profile view");
     	}
     	else
-    		error("Informations incorrectes. Veuillez réessayer");
+    		this.error.setVisible(true);
     }
 
     private void subscribe() {

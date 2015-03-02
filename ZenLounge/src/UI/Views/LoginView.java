@@ -12,7 +12,10 @@ import javax.swing.JTextField;
 
 import BL.Facades.UserFacade;
 import BL.Others.Utilitary;
+import UI.Common.Frame;
 import UI.Common.View;
+
+import javax.swing.SpringLayout;
 
 public class LoginView extends View implements ActionListener{
 	
@@ -41,27 +44,44 @@ public class LoginView extends View implements ActionListener{
     	pwdField = new JPasswordField(10);
     	
     	loginButton = new JButton(Action.NAME);
-    	loginButton.setText("Connection");
+    	loginButton.setText("Connect");
     	loginButton.addActionListener(this);
     	
     	subscribeButton = new JButton(Action.NAME);
     	subscribeButton.setText("Subscribe");
     	subscribeButton.addActionListener(this);
+    	SpringLayout springLayout = new SpringLayout();
+    	springLayout.putConstraint(SpringLayout.NORTH, loginButton, 30, SpringLayout.SOUTH, pwdField);
+    	springLayout.putConstraint(SpringLayout.NORTH, subscribeButton, 0, SpringLayout.NORTH, loginButton);
+    	springLayout.putConstraint(SpringLayout.WEST, subscribeButton, 0, SpringLayout.WEST, pwdLabel);
+    	springLayout.putConstraint(SpringLayout.NORTH, pwdField, 202, SpringLayout.NORTH, this);
+    	springLayout.putConstraint(SpringLayout.NORTH, pwdLabel, 3, SpringLayout.NORTH, pwdField);
+    	springLayout.putConstraint(SpringLayout.EAST, pwdLabel, 0, SpringLayout.EAST, loginLabel);
+    	springLayout.putConstraint(SpringLayout.WEST, loginField, 338, SpringLayout.WEST, this);
+    	springLayout.putConstraint(SpringLayout.SOUTH, loginField, -17, SpringLayout.NORTH, pwdField);
+    	springLayout.putConstraint(SpringLayout.NORTH, loginLabel, 3, SpringLayout.NORTH, loginField);
+    	springLayout.putConstraint(SpringLayout.EAST, loginLabel, -41, SpringLayout.WEST, loginField);
+    	springLayout.putConstraint(SpringLayout.EAST, loginButton, 0, SpringLayout.EAST, loginField);
+    	springLayout.putConstraint(SpringLayout.EAST, pwdField, 0, SpringLayout.EAST, loginField);
+    	setLayout(springLayout);
 
-    	super.add(loginLabel);
-    	super.add(loginField);
-    	super.add(pwdLabel);
-    	super.add(pwdField);
-    	super.add(loginButton);
-    	super.add(subscribeButton);
+    	this.add(loginLabel);
+    	this.add(loginField);
+    	this.add(pwdLabel);
+    	this.add(pwdField);
+    	this.add(loginButton);
+    	this.add(subscribeButton);
     }
 
     private void login() {
     	String pwd = String.valueOf(pwdField.getPassword());
     	pwdField.setText("");
-    	if(userFacade.handleLogin(loginField.getText(),pwd))
-    		/*Frame.getFrame().setView(new ProfileView())*/
+    	if(userFacade.handleLogin(loginField.getText(),pwd)){
+    		Frame.getFrame().setView(new NotificationCenterView("Zen Lounge - Notification Center"));
+    		Frame.getFrame().revalidate();
+    		System.out.println(this.getWidth()+ "loool"+this.getHeight());
         	log("Login succeeded. Show Profile view");
+    	}
     	else
     		error("Informations incorrectes. Veuillez réessayer");
     }

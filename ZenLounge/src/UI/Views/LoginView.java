@@ -32,7 +32,7 @@ public class LoginView extends View implements ActionListener{
     private JButton subscribeButton;
 	
     public UserFacade userFacade;
-    private JLabel error;
+    private JLabel errorMessage;
     
     public LoginView(){
     	super("ZenLounge - Login",false);
@@ -74,24 +74,27 @@ public class LoginView extends View implements ActionListener{
     	this.add(loginButton);
     	this.add(subscribeButton);
     	
-    	error = new JLabel("Incorrect Login/Password combination. Please try again.");
-    	springLayout.putConstraint(SpringLayout.SOUTH, error, -29, SpringLayout.NORTH, loginField);
-    	springLayout.putConstraint(SpringLayout.EAST, error, -196, SpringLayout.EAST, this);
-    	error.setForeground(Color.RED);
-    	error.setVisible(false);
-    	add(error);
+    	errorMessage = new JLabel();
+    	springLayout.putConstraint(SpringLayout.SOUTH, errorMessage, -29, SpringLayout.NORTH, loginField);
+    	springLayout.putConstraint(SpringLayout.EAST, errorMessage, -196, SpringLayout.EAST, this);
+    	errorMessage.setForeground(Color.RED);
+    	errorMessage.setVisible(false);
+    	add(errorMessage);
     }
 
     private void login() {
     	String pwd = String.valueOf(pwdField.getPassword());
     	pwdField.setText("");
-    	if(userFacade.handleLogin(loginField.getText(),pwd)){
+    	String error = userFacade.handleLogin(loginField.getText(),pwd);
+    	if(error == null){
     		Frame.getFrame().setView(new NotificationCenterView("Zen Lounge - Notification Center"));
     		Frame.getFrame().revalidate();
         	log("Login succeeded. Show Profile view");
     	}
-    	else
-    		this.error.setVisible(true);
+    	else {
+    		this.errorMessage.setText(error);
+    		this.errorMessage.setVisible(true);
+    	}
     }
 
     private void subscribe() {

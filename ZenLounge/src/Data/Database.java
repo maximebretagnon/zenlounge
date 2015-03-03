@@ -15,27 +15,26 @@ public class Database
     private static Connection connexion = null;
     
     public static void open() {
-		
-    	/* Chargement du driver */
-		try {
-		    Class.forName( "com.mysql.jdbc.Driver" );
-		} catch ( ClassNotFoundException e ) {
-		    /* Gérer les éventuelles erreurs ici. */
-		}
-		
-		/* Ouverture de la connexion */
-    	try {
-		    connexion = DriverManager.getConnection( url, login, pwd );
-		} catch ( SQLException e ) {
-		    /* Gérer les éventuelles erreurs ici */
-		}
+    	/* Si la connexion n'existe pas, on l'ouvre */
+    	if (connexion == null) {
+	    	/* Chargement du driver */
+			try {
+			    Class.forName( "com.mysql.jdbc.Driver" );
+			} catch ( ClassNotFoundException e ) {
+			    /* Gérer les éventuelles erreurs ici. */
+			}
+			
+			/* Ouverture de la connexion */
+	    	try {
+			    connexion = DriverManager.getConnection( url, login, pwd );
+			} catch ( SQLException e ) {
+			    /* Gérer les éventuelles erreurs ici */
+			}
+    	}
     }
 
     public static ResultSet selectRequest(String request) {
-    	
-    	/* Si la connexion n'existe pas, on l'ouvre */
-    	if (connexion == null)
-    		open();
+    	open();
     	
     	/* Exécution d'une requête de lecture */
     	ResultSet resultat = null;

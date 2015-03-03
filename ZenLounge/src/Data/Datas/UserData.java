@@ -80,31 +80,23 @@ public class UserData {
 		this.pwd = pwd;
 	}
 
-	public static UserData getUser(String login) {
+	public static UserData getUser(String login) throws SQLException {
     	UserData data = new UserData();
 		String request = "SELECT firstName,lastName,phone,mail,address,login,pwd FROM User where login='"+login+"'";
     	ResultSet result = Database.selectRequest(request);
     	
-    	try {
-			while ( result.next() ) {
-				data.firstName = result.getString("firstName");
-				data.lastName = result.getString("lastName");
-				data.phone = result.getString("phone");
-				data.mail = result.getString("mail");
-				data.address = result.getString("address");
-				data.login = result.getString("login");
-				data.pwd = result.getString("pwd");
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-	        try {
-	            /* On commence par fermer le ResultSet */
-	            result.close();
-	        } catch ( SQLException ignore ) {}
+    	while ( result.next() ) {
+			data.firstName = result.getString("firstName");
+			data.lastName = result.getString("lastName");
+			data.phone = result.getString("phone");
+			data.mail = result.getString("mail");
+			data.address = result.getString("address");
+			data.login = result.getString("login");
+			data.pwd = result.getString("pwd");
 		}
+	    /* On commence par fermer le ResultSet */
+	    result.close();
+
     	return data;
-    }
+}
 }

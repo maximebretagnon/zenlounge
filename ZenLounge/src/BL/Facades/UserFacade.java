@@ -12,7 +12,7 @@ public class UserFacade {
     	userManager = new UserManager(viewIF);
     }
     
-    public boolean handleLogin(String login, String pwd) {
+    public String handleLogin(String login, String pwd) {
     	return userManager.handleLogin(login, pwd);
     }
 }

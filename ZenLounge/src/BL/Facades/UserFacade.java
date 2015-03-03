@@ -7,6 +7,7 @@ public class UserFacade {
 	
     public UserManager userManager;
 
+    
     public UserFacade(ViewIF viewIF){
     	userManager = new UserManager(viewIF);
     }

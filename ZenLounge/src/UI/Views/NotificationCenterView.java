@@ -13,7 +13,7 @@ import javax.swing.JButton;
 public class NotificationCenterView extends View {
 
 	public NotificationCenterView(String name) {
-		super(name);
+		super(name,true);
 		setLayout(null);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);

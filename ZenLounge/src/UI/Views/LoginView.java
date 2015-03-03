@@ -35,7 +35,7 @@ public class LoginView extends View implements ActionListener{
     private JLabel error;
     
     public LoginView(){
-    	super("ZenLounge - Login");
+    	super("ZenLounge - Login",false);
     	
     	userFacade = new UserFacade(this);
 

@@ -83,7 +83,7 @@ public class LoginView extends View implements ActionListener{
     }
 
     private void login() {
-    	String pwd = String.valueOf(pwdField.getPassword());
+    	String pwd = Utilitary.hash(pwdField.getPassword());
     	pwdField.setText("");
     	String error = userFacade.handleLogin(loginField.getText(),pwd);
     	if(error == null){

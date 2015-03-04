@@ -19,25 +19,18 @@ public class UserManager {
 
     public String handleLogin(String login, String pwd) {
     	
-    	String errorMessage = null;
-
     	try {
-			userData = UserData.getUser(login);
-	    	System.out.println(Utilitary.hash(pwd));
+			userData = UserData.getUser(login,pwd);
 			
-	    	
-	    	if(!Utilitary.hash(pwd).equals(userData.getPwd())) {
-	    		if(userData.getLogin().equals(""))	
-		    		errorMessage = "Incorrect Login/Password combination. Please try again.";
-	    		else
-	    			errorMessage = "Incorrect Password. Please try again.";
-	    	}
-	    	
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			errorMessage = e.getMessage();
+			if(userData == null)
+				return "Informations incorrectes. Veuillez réessayer";
+			
+	    	System.out.println(pwd);
 		}
-    	
-    	return errorMessage;
+    	catch (SQLException e)
+    	{
+			return e.getMessage();
+		}
+    	return null;
     }
 }

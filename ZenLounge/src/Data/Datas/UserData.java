@@ -80,11 +80,19 @@ public class UserData {
 		this.pwd = pwd;
 	}
 
-	public static UserData getUser(String login) throws SQLException {
-    	UserData data = new UserData();
-		String request = "SELECT firstName,lastName,phone,mail,address,login,pwd FROM User where login='"+login+"'";
-    	ResultSet result = Database.selectRequest(request);
+	public static UserData getUser(String login, String pwd) throws SQLException {
+		
+    	ResultSet result = Database.getDatabase().getUser(login,pwd);
     	
+    	//If the result is empty
+    	if(!result.next())
+    		return null;
+    	//else
+    	
+    	//Ouverture de session
+    	UserData data = new UserData();
+    	
+    	result.beforeFirst();
     	while ( result.next() ) {
 			data.firstName = result.getString("firstName");
 			data.lastName = result.getString("lastName");
@@ -94,9 +102,9 @@ public class UserData {
 			data.login = result.getString("login");
 			data.pwd = result.getString("pwd");
 		}
-	    /* On commence par fermer le ResultSet */
+	    /* On ferme le ResultSet */
 	    result.close();
 
     	return data;
-}
+	}
 }

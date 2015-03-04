@@ -1,6 +1,5 @@
 package BL.Others;
 
-
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class Utilitary {
@@ -9,5 +8,8 @@ public class Utilitary {
     	String result;
     	result = DigestUtils.sha1Hex(str);
     	return result;
+    }
+    public static String hash(char[] value){
+    	return hash(String.valueOf(value));
     }
 }
